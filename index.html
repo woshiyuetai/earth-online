@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🌍 地球Online - 全球玩家评测站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .stats-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+
+        /* 分类标签 */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a2e;
+            font-weight: bold;
+            border: none;
+        }
+
+        /* 评分卡片 */
+        .rating-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rating-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .dimension {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dimension label {
+            font-weight: 600;
+            width: 100px;
+        }
+
+        .star-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .star {
+            font-size: 28px;
+            cursor: pointer;
+            color: #555;
+            transition: 0.1s;
+        }
+
+        .star.selected {
+            color: #FFD700;
+            text-shadow: 0 0 5px #FFD700;
+        }
+
+        .star:hover {
+            transform: scale(1.1);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+        }
+
+        button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* 评论卡片 */
+        .review-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .review-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #1a1a2e;
+        }
+
+        .author {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .score-badge {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        .review-dimensions {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #bbb;
+            flex-wrap: wrap;
+        }
+
+        .review-content {
+            line-height: 1.6;
+            margin: 12px 0;
+        }
+
+        .review-footer {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .delete-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: none;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            color: #ff6b6b;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .warning-banner {
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid rgba(255, 100, 100, 0.3);
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .star { font-size: 22px; }
+            .dimension label { width: 80px; font-size: 14px; }
+            .tabs .tab { padding: 6px 14px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🌍 地球Online</h1>
+        <p class="subtitle">真实玩家评测 · 不删档内测中</p>
+        <div class="stats-badge" id="statsBadge">🎮 等待你第一条评测</div>
+    </div>
+
+    <!-- 提示 -->
+    <div class="warning-banner">
+        💡 提示：所有数据保存在<b>你自己的浏览器</b>中（localStorage）。<br>
+        换设备/清缓存后数据会丢失，建议截图留念！
+    </div>
+
+    <!-- 分类标签 -->
+    <div class="tabs" id="tabs">
+        <div class="tab active" data-category="game">🎮 游戏总体</div>
+        <div class="tab" data-category="china">🇨🇳 中国服</div>
+        <div class="tab" data-category="job">💼 职业体验</div>
+        <div class="tab" data-category="life">📚 人生阶段</div>
+        <div class="tab" data-category="other">🌍 其他</div>
+    </div>
+
+    <!-- 评分表单 -->
+    <div class="rating-card">
+        <h3>✍️ 写下你的评测</h3>
+        
+        <div class="dimension">
+            <label>⭐ 综合评分</label>
+            <div class="star-group" id="starOverall"></div>
+        </div>
+        <div class="dimension">
+            <label>🎨 画质/风景</label>
+            <div class="star-group" id="starGraphics"></div>
+        </div>
+        <div class="dimension">
+            <label>⚙️ 性能/健康</label>
+            <div class="star-group" id="starPerformance"></div>
+        </div>
+        <div class="dimension">
+            <label>💰 经济系统</label>
+            <div class="star-group" id="starEconomy"></div>
+        </div>
+        <div class="dimension">
+            <label>😊 社交体验</label>
+            <div class="star-group" id="starSocial"></div>
+        </div>
+
+        <input type="text" id="playerName" placeholder="你的昵称（留空则显示'匿名玩家'）" maxlength="20" style="margin-bottom: 15px;">
+        <textarea id="commentText" rows="3" placeholder="分享你的地球Online游戏体验... 比如：'新手村难度太高' / '画质无敌但氪金严重' / '中国服福利不错'"></textarea>
+        <button id="submitBtn">🚀 发布评测</button>
+    </div>
+
+    <!-- 评论列表 -->
+    <h3 style="margin: 20px 0 15px;">📢 玩家评测精选</h3>
+    <div id="reviewsList"></div>
+</div>
+
+<script>
+    // ==================== 数据存储key ====================
+    const STORAGE_KEY = 'earth_ol_reviews';
+
+    // 当前分类
+    let currentCategory = 'game';
+
+    // 当前评分
+    let scores = {
+        overall: 5,
+        graphics: 5,
+        performance: 5,
+        economy: 5,
+        social: 5
+    };
+
+    // ==================== 初始化星星组件 ====================
+    function initStarRating(containerId, scoreKey) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 1; i <= 10; i++) {
+            const star = document.createElement('span');
+            star.textContent = i <= scores[scoreKey] ? '★' : '☆';
+            star.className = 'star';
+            if (i <= scores[scoreKey]) star.classList.add('selected');
+            star.onclick = (function(value) {
+                return function() {
+                    scores[scoreKey] = value;
+                    updateAllStars();
+                };
+            })(i);
+            container.appendChild(star);
+        }
+    }
+
+    function updateAllStars() {
+        // 更新各个星星组
+        const starMappings = [
+            { container: 'starOverall', key: 'overall' },
+            { container: 'starGraphics', key: 'graphics' },
+            { container: 'starPerformance', key: 'performance' },
+            { container: 'starEconomy', key: 'economy' },
+            { container: 'starSocial', key: 'social' }
+        ];
+        
+        starMappings.forEach(map => {
+            const container = document.getElementById(map.container);
+            if (!container) return;
+            const stars = container.children;
+            for (let i = 0; i < stars.length; i++) {
+                const starSpan = stars[i];
+                const isSelected = (i + 1) <= scores[map.key];
+                starSpan.textContent = isSelected ? '★' : '☆';
+                if (isSelected) {
+                    starSpan.classList.add('selected');
+                } else {
+                    starSpan.classList.remove('selected');
+                }
+            }
+        });
+    }
+
+    // ==================== 获取所有评论 ====================
+    function getAllReviews() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) return [];
+        try {
+            return JSON.parse(stored);
+        } catch(e) {
+            return [];
+        }
+    }
+
+    // 保存评论
+    function saveReview(review) {
+        const reviews = getAllReviews();
+        reviews.unshift(review); // 新评论放最前面
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+    }
+
+    // 删除评论
+    function deleteReview(reviewId) {
+        let reviews = getAllReviews();
+        reviews = reviews.filter(r => r.id !== reviewId);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+        renderReviews();
+        updateStats();
+    }
+
+    // ==================== 渲染评论列表 ====================
+    function renderReviews() {
+        const allReviews = getAllReviews();
+        // 按分类筛选
+        const filtered = allReviews.filter(r => r.category === currentCategory);
+        
+        const container = document.getElementById('reviewsList');
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    🌱 暂无评测<br>
+                    成为第一个评价这个分类的人吧！
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = filtered.map(review => `
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="avatar">${getAvatarChar(review.playerName)}</div>
+                    <span class="author">${escapeHtml(review.playerName || '匿名玩家')}</span>
+                    <span class="score-badge">⭐ ${review.scores.overall}.0</span>
+                    <button class="delete-btn" onclick="deleteReview('${review.id}')">🗑️ 删除</button>
+                </div>
+                <div class="review-dimensions">
+                    <span>🎨 画质 ${review.scores.graphics}⭐</span>
+                    <span>⚙️ 性能 ${review.scores.performance}⭐</span>
+                    <span>💰 经济 ${review.scores.economy}⭐</span>
+                    <span>😊 社交 ${review.scores.social}⭐</span>
+                </div>
+                <div class="review-content">${escapeHtml(review.content)}</div>
+                <div class="review-footer">
+                    <span>📅 ${review.date}</span>
+                    <span>🏷️ ${getCategoryName(review.category)}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getAvatarChar(name) {
+        if (!name) return '👤';
+        const first = name.charAt(0);
+        // 简单判断是否中文
+        if (/[\u4e00-\u9fa5]/.test(first)) {
+            return first;
+        }
+        return first.toUpperCase();
+    }
+
+    function getCategoryName(cat) {
+        const map = {
+            'game': '🎮 游戏总体',
+            'china': '🇨🇳 中国服',
+            'job': '💼 职业体验',
+            'life': '📚 人生阶段',
+            'other': '🌍 其他'
+        };
+        return map[cat] || cat;
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML.replace(/\n/g, '<br>');
+    }
+
+    // 更新统计信息
+    function updateStats() {
+        const allReviews = getAllReviews();
+        const total = allReviews.length;
+        if (total === 0) {
+            document.getElementById('statsBadge').innerHTML = '🎮 等待你第一条评测';
+            return;
+        }
+        let sumOverall = 0;
+        allReviews.forEach(r => {
+            sumOverall += r.scores.overall;
+        });
+        const avgScore = (sumOverall / total).toFixed(1);
+        document.getElementById('statsBadge').innerHTML = `📊 ${total}条评测 · 平均评分 ${avgScore}⭐`;
+    }
+
+    // ==================== 发布新评论 ====================
+    function publishReview() {
+        // 检查内容
+        const content = document.getElementById('commentText').value.trim();
+        if (!content) {
+            alert('请填写评测内容');
+            return;
+        }
+        
+        const playerName = document.getElementById('playerName').value.trim();
+        
+        // 生成唯一ID
+        const reviewId = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+        
+        const newReview = {
+            id: reviewId,
+            playerName: playerName || '匿名玩家',
+            category: currentCategory,
+            scores: { ...scores },  // 复制当前分数
+            content: content,
+            date: new Date().toLocaleString('zh-CN')
+        };
+        
+        saveReview(newReview);
+        
+        // 清空表单
+        document.getElementById('commentText').value = '';
+        document.getElementById('playerName').value = '';
+        // 重置评分为5
+        scores = {
+            overall: 5,
+            graphics: 5,
+            performance: 5,
+            economy: 5,
+            social: 5
+        };
+        updateAllStars();
+        
+        // 刷新显示
+        renderReviews();
+        updateStats();
+        
+        alert('✅ 评测发布成功！');
+    }
+
+    // ==================== 初始化 ====================
+    function init() {
+        // 初始化所有星星组件
+        initStarRating('starOverall', 'overall');
+        initStarRating('starGraphics', 'graphics');
+        initStarRating('starPerformance', 'performance');
+        initStarRating('starEconomy', 'economy');
+        initStarRating('starSocial', 'social');
+        
+        // 加载已有评论
+        renderReviews();
+        updateStats();
+        
+        // 绑定提交按钮
+        document.getElementById('submitBtn').onclick = publishReview;
+        
+        // 绑定分类切换
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.onclick = () => {
+                // 更新激活样式
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // 更新当前分类
+                currentCategory = tab.getAttribute('data-category');
+                // 重新渲染
+                renderReviews();
+            };
+        });
+    }
+    
+    // 启动
+    init();
+</script>
+</body>
+</html>
