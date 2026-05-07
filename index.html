@@ -3,63 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🌍 地球Online - 全球玩家评测站</title>
     <base href="./">
-    <title>🌍 地球Online - 全球玩家评测站（公测版）</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
             color: #f0f0f0;
             padding: 20px;
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        /* 头部 */
+        .container { max-width: 1000px; margin: 0 auto; }
         .header {
             text-align: center;
             padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border-radius: 40px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .header h1 {
             font-size: 2.8rem;
             background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
         }
-
-        .subtitle {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
         .stats-badge {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(255,215,0,0.2);
             padding: 8px 18px;
             border-radius: 30px;
             font-size: 0.85rem;
             margin-top: 15px;
         }
-
-        /* 分类标签 */
         .tabs {
             display: flex;
             gap: 10px;
@@ -67,43 +45,25 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .tab {
             padding: 10px 22px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.08);
             border-radius: 30px;
             cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .tab:hover {
-            background: rgba(255, 215, 0, 0.2);
-        }
-
         .tab.active {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             color: #1a1a2e;
             font-weight: bold;
-            border: none;
         }
-
-        /* 评分卡片 */
         .rating-card {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.06);
             backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .rating-card h3 {
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-        }
-
         .dimension {
             display: flex;
             align-items: center;
@@ -111,52 +71,26 @@
             flex-wrap: wrap;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        .dimension label {
-            font-weight: 600;
-            width: 100px;
-        }
-
-        .star-group {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
+        .dimension label { font-weight: 600; width: 100px; }
+        .star-group { display: flex; gap: 6px; }
         .star {
             font-size: 28px;
             cursor: pointer;
             color: #555;
             transition: 0.1s;
         }
-
-        .star.selected {
-            color: #FFD700;
-            text-shadow: 0 0 5px #FFD700;
-        }
-
-        .star:hover {
-            transform: scale(1.1);
-        }
-
+        .star.selected { color: #FFD700; text-shadow: 0 0 5px #FFD700; }
         textarea, input {
             width: 100%;
             padding: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 16px;
             color: white;
             font-size: 14px;
-            font-family: inherit;
         }
-
-        textarea:focus, input:focus {
-            outline: none;
-            border-color: #FFD700;
-        }
-
         button {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             border: none;
@@ -165,35 +99,15 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 16px;
-            transition: 0.2s;
             margin-top: 10px;
         }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* 评论卡片 */
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
         .review-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 16px;
-            transition: 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        .review-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(5px);
-        }
-
         .review-header {
             display: flex;
             align-items: center;
@@ -201,7 +115,6 @@
             margin-bottom: 12px;
             flex-wrap: wrap;
         }
-
         .avatar {
             width: 40px;
             height: 40px;
@@ -211,24 +124,15 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 18px;
-            color: #1a1a2e;
         }
-
-        .author {
-            font-weight: bold;
-            color: #FFD700;
-        }
-
+        .author { font-weight: bold; color: #FFD700; }
         .score-badge {
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(255,215,0,0.2);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: bold;
             margin-left: auto;
         }
-
         .review-dimensions {
             display: flex;
             gap: 15px;
@@ -237,12 +141,7 @@
             color: #bbb;
             flex-wrap: wrap;
         }
-
-        .review-content {
-            line-height: 1.6;
-            margin: 12px 0;
-        }
-
+        .review-content { line-height: 1.6; margin: 12px 0; }
         .review-footer {
             display: flex;
             gap: 20px;
@@ -250,39 +149,33 @@
             color: #888;
             margin-top: 10px;
         }
-
         .delete-btn {
-            background: rgba(255, 0, 0, 0.2);
+            background: rgba(255,0,0,0.2);
             border: none;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 11px;
             cursor: pointer;
             color: #ff6b6b;
-            transition: 0.2s;
         }
-
-        .delete-btn:hover {
-            background: rgba(255, 0, 0, 0.4);
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            z-index: 999;
+            backdrop-filter: blur(5px);
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #888;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #FFD700;
-        }
-
+        .loading, .empty-state { text-align: center; padding: 40px; color: #888; }
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8rem; }
             .star { font-size: 22px; }
             .dimension label { width: 80px; font-size: 14px; }
-            .tabs .tab { padding: 6px 14px; font-size: 12px; }
         }
     </style>
 </head>
@@ -290,11 +183,10 @@
 <div class="container">
     <div class="header">
         <h1>🌍 地球Online</h1>
-        <p class="subtitle">🌐 全球玩家实时共享评测 · 公测中</p>
+        <p class="subtitle">🌐 全球玩家实时共享评测</p>
         <div class="stats-badge" id="statsBadge">📊 加载中...</div>
     </div>
 
-    <!-- 分类标签 -->
     <div class="tabs" id="tabs">
         <div class="tab active" data-category="game">🎮 游戏总体</div>
         <div class="tab" data-category="china">🇨🇳 中国服</div>
@@ -303,359 +195,284 @@
         <div class="tab" data-category="other">🌍 其他</div>
     </div>
 
-    <!-- 评分表单 -->
     <div class="rating-card">
         <h3>✍️ 写下你的评测</h3>
-        
-        <div class="dimension">
-            <label>⭐ 综合评分</label>
-            <div class="star-group" id="starOverall"></div>
-        </div>
-        <div class="dimension">
-            <label>🎨 画质/风景</label>
-            <div class="star-group" id="starGraphics"></div>
-        </div>
-        <div class="dimension">
-            <label>⚙️ 性能/健康</label>
-            <div class="star-group" id="starPerformance"></div>
-        </div>
-        <div class="dimension">
-            <label>💰 经济系统</label>
-            <div class="star-group" id="starEconomy"></div>
-        </div>
-        <div class="dimension">
-            <label>😊 社交体验</label>
-            <div class="star-group" id="starSocial"></div>
-        </div>
-
-        <input type="text" id="playerName" placeholder="你的昵称（必填，最多20字）" maxlength="20" style="margin-bottom: 15px;">
-        <textarea id="commentText" rows="3" placeholder="分享你的地球Online游戏体验... 比如：'新手村难度太高' / '画质无敌但氪金严重' / '中国服福利不错'"></textarea>
+        <div class="dimension"><label>⭐ 综合评分</label><div class="star-group" id="starOverall"></div></div>
+        <div class="dimension"><label>🎨 画质/风景</label><div class="star-group" id="starGraphics"></div></div>
+        <div class="dimension"><label>⚙️ 性能/健康</label><div class="star-group" id="starPerformance"></div></div>
+        <div class="dimension"><label>💰 经济系统</label><div class="star-group" id="starEconomy"></div></div>
+        <div class="dimension"><label>😊 社交体验</label><div class="star-group" id="starSocial"></div></div>
+        <input type="text" id="playerName" placeholder="你的昵称（必填）" maxlength="20" style="margin-bottom: 15px;">
+        <textarea id="commentText" rows="3" placeholder="分享你的地球Online游戏体验..."></textarea>
         <button id="submitBtn">🚀 发布评测（全球可见）</button>
     </div>
 
-    <!-- 评论列表 -->
-    <h3 style="margin: 20px 0 15px;">📢 全球玩家评测 <span id="reviewCount" style="font-size: 14px; color: #FFD700;"></span></h3>
-    <div id="reviewsList">
-        <div class="loading">⏳ 加载评论中...</div>
-    </div>
+    <h3 style="margin: 20px 0 15px;">📢 全球玩家评测 <span id="reviewCount"></span></h3>
+    <div id="reviewsList"><div class="loading">⏳ 加载评论中...</div></div>
 </div>
+<div class="admin-toggle" id="adminToggle">🔒 普通模式</div>
 
 <script>
-    // ==================== 请替换成你的 Supabase 配置 ====================
-    const SUPABASE_URL = 'https://cmluvcvrcbynxrjzqmgh.supabase.co';  // 👈 改这里！
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtbHV2Y3ZyY2J5bnhyanpxbWdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNDcyMjIsImV4cCI6MjA5MzcyMzIyMn0.1FZhErEflh3xk4eMPK7WVOMcHWE_ul_9QkiV_4nITQ0';          // 👈 改这里！
-    // =================================================================
+    // ==================== ⚠️ 请替换成你的 Supabase 配置 ====================
+    const SUPABASE_URL = 'https://cmluvecvrcbynxrjzqmgh.supabase.co';  // 👈 改这里！
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtbHV2Y3ZyY2J5bnhyanpxbWdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNDcyMjIsImV4cCI6MjA5MzcyMzIyMn0.1FZhErEflh3xk4eMPK7WVOMcHWE_ul_9QkiV_4nITQ0';  // 👈 改成你自己的 anon key
+    // ====================================================================
 
-    let currentCategory = 'game';
-    
-    // 当前评分
-    let scores = {
-        overall: 5,
-        graphics: 5,
-        performance: 5,
-        economy: 5,
-        social: 5
-    };
+    let currentCategory = "game";
+    let scores = { overall: 5, graphics: 5, performance: 5, economy: 5, social: 5 };
+    let isAdmin = false;
+    let myUserUuid = null;
 
-    // ==================== 初始化星星组件 ====================
+    // 生成或获取设备唯一标识
+    function getMyUserUuid() {
+        let uuid = localStorage.getItem("reviewer_uuid");
+        if (!uuid) {
+            uuid = crypto.randomUUID ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(36);
+            localStorage.setItem("reviewer_uuid", uuid);
+        }
+        return uuid;
+    }
+
+    // 星星组件
     function initStarRating(containerId, scoreKey) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        container.innerHTML = '';
+        container.innerHTML = "";
         for (let i = 1; i <= 10; i++) {
-            const star = document.createElement('span');
-            star.textContent = i <= scores[scoreKey] ? '★' : '☆';
-            star.className = 'star';
-            if (i <= scores[scoreKey]) star.classList.add('selected');
-            star.onclick = (function(value) {
-                return function() {
-                    scores[scoreKey] = value;
-                    updateAllStars();
-                };
-            })(i);
+            const star = document.createElement("span");
+            star.textContent = "☆";
+            star.className = "star";
+            if (i <= scores[scoreKey]) star.classList.add("selected");
+            star.onclick = () => {
+                scores[scoreKey] = i;
+                updateAllStars();
+            };
             container.appendChild(star);
         }
     }
-
     function updateAllStars() {
-        const starMappings = [
-            { container: 'starOverall', key: 'overall' },
-            { container: 'starGraphics', key: 'graphics' },
-            { container: 'starPerformance', key: 'performance' },
-            { container: 'starEconomy', key: 'economy' },
-            { container: 'starSocial', key: 'social' }
+        const mappings = [
+            { container: "starOverall", key: "overall" },
+            { container: "starGraphics", key: "graphics" },
+            { container: "starPerformance", key: "performance" },
+            { container: "starEconomy", key: "economy" },
+            { container: "starSocial", key: "social" }
         ];
-        
-        starMappings.forEach(map => {
-            const container = document.getElementById(map.container);
+        mappings.forEach(m => {
+            const container = document.getElementById(m.container);
             if (!container) return;
             const stars = container.children;
             for (let i = 0; i < stars.length; i++) {
-                const starSpan = stars[i];
-                const isSelected = (i + 1) <= scores[map.key];
-                starSpan.textContent = isSelected ? '★' : '☆';
-                if (isSelected) {
-                    starSpan.classList.add('selected');
-                } else {
-                    starSpan.classList.remove('selected');
-                }
+                const isSelected = (i + 1) <= scores[m.key];
+                stars[i].textContent = isSelected ? "★" : "☆";
+                if (isSelected) stars[i].classList.add("selected");
+                else stars[i].classList.remove("selected");
             }
         });
     }
 
-    // ==================== Supabase 操作 ====================
+    // API 请求
     async function fetchReviews() {
         try {
             const url = `${SUPABASE_URL}/rest/v1/reviews?select=*&order=created_at.desc`;
-            const response = await fetch(url, {
-                headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                }
+            const res = await fetch(url, {
+                headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
             });
-            
-            if (!response.ok) throw new Error('获取失败');
-            const reviews = await response.json();
-            return reviews;
-        } catch (error) {
-            console.error('加载失败:', error);
-            return [];
-        }
+            if (!res.ok) throw new Error("fetch failed");
+            return await res.json();
+        } catch (e) { return []; }
     }
 
     async function fetchStats() {
         try {
             const url = `${SUPABASE_URL}/rest/v1/stats?select=*`;
-            const response = await fetch(url, {
-                headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                }
+            const res = await fetch(url, {
+                headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }
             });
-            const stats = await response.json();
-            if (stats && stats[0]) {
-                return {
-                    total: stats[0].total_reviews,
-                    avg: stats[0].avg_score
-                };
-            }
+            const data = await res.json();
+            if (data && data[0]) return { total: data[0].total_reviews, avg: data[0].avg_score };
             return { total: 0, avg: 0 };
-        } catch (e) {
-            return { total: 0, avg: 0 };
-        }
+        } catch (e) { return { total: 0, avg: 0 }; }
     }
 
-    async function postReview(reviewData) {
+    async function postReview(review) {
         const url = `${SUPABASE_URL}/rest/v1/reviews`;
-        const response = await fetch(url, {
-            method: 'POST',
+        const res = await fetch(url, {
+            method: "POST",
             headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=minimal'
+                apikey: SUPABASE_ANON_KEY,
+                Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(reviewData)
+            body: JSON.stringify(review)
         });
-        return response.ok;
+        return res.ok;
     }
 
-    async function deleteReviewById(reviewId) {
-        const url = `${SUPABASE_URL}/rest/v1/reviews?id=eq.${reviewId}`;
-        const response = await fetch(url, {
-            method: 'DELETE',
+    async function deleteReviewById(id) {
+        const url = `${SUPABASE_URL}/rest/v1/reviews?id=eq.${id}`;
+        const res = await fetch(url, {
+            method: "DELETE",
             headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                apikey: SUPABASE_ANON_KEY,
+                Authorization: `Bearer ${SUPABASE_ANON_KEY}`
             }
         });
-        return response.ok;
+        return res.ok;
     }
 
-    // ==================== 渲染 ====================
+    // 渲染评论
     async function renderReviews() {
-        const container = document.getElementById('reviewsList');
-        container.innerHTML = '<div class="loading">⏳ 加载评论中...</div>';
-        
-        const allReviews = await fetchReviews();
-        const filtered = allReviews.filter(r => r.category === currentCategory);
-        
-        const countSpan = document.getElementById('reviewCount');
-        countSpan.textContent = `(${filtered.length}条)`;
-        
+        const container = document.getElementById("reviewsList");
+        container.innerHTML = '<div class="loading">⏳ 加载中...</div>';
+        const all = await fetchReviews();
+        const filtered = all.filter(r => r.category === currentCategory);
+        document.getElementById("reviewCount").innerText = `(${filtered.length}条)`;
         if (filtered.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    🌱 暂无评测<br>
-                    成为第一个评价这个分类的玩家吧！
-                </div>
-            `;
+            container.innerHTML = '<div class="empty-state">🌱 暂无评测，写第一条吧！</div>';
             return;
         }
-        
-        container.innerHTML = filtered.map(review => `
-            <div class="review-card" data-id="${review.id}">
+        container.innerHTML = filtered.map(r => {
+            const canDelete = isAdmin || (myUserUuid && r.user_uuid === myUserUuid);
+            return `
+            <div class="review-card" data-id="${r.id}">
                 <div class="review-header">
-                    <div class="avatar">${getAvatarChar(review.player_name)}</div>
-                    <span class="author">${escapeHtml(review.player_name)}</span>
-                    <span class="score-badge">⭐ ${review.overall_score}.0</span>
-                    <button class="delete-btn" onclick="handleDelete(${review.id})">🗑️ 删除</button>
+                    <div class="avatar">${getAvatarChar(r.player_name)}</div>
+                    <span class="author">${escapeHtml(r.player_name)}</span>
+                    <span class="score-badge">⭐ ${r.overall_score}.0</span>
+                    ${canDelete ? `<button class="delete-btn" onclick="deleteReview(${r.id})">删除</button>` : ''}
                 </div>
                 <div class="review-dimensions">
-                    <span>🎨 画质 ${review.graphics_score}⭐</span>
-                    <span>⚙️ 性能 ${review.performance_score}⭐</span>
-                    <span>💰 经济 ${review.economy_score}⭐</span>
-                    <span>😊 社交 ${review.social_score}⭐</span>
+                    <span>🎨 画质 ${r.graphics_score}⭐</span>
+                    <span>⚙️ 性能 ${r.performance_score}⭐</span>
+                    <span>💰 经济 ${r.economy_score}⭐</span>
+                    <span>😊 社交 ${r.social_score}⭐</span>
                 </div>
-                <div class="review-content">${escapeHtml(review.content)}</div>
+                <div class="review-content">${escapeHtml(r.content)}</div>
                 <div class="review-footer">
-                    <span>📅 ${new Date(review.created_at).toLocaleString('zh-CN')}</span>
-                    <span>🏷️ ${getCategoryName(review.category)}</span>
+                    <span>📅 ${new Date(r.created_at).toLocaleString()}</span>
+                    <span>🏷️ ${getCategoryName(r.category)}</span>
                 </div>
             </div>
-        `).join('');
+        `}).join("");
     }
 
-    async function handleDelete(reviewId) {
-        if (!confirm('确定要删除这条评论吗？')) return;
-        const success = await deleteReviewById(reviewId);
-        if (success) {
-            alert('✅ 删除成功');
+    window.deleteReview = async function(id) {
+        if (!confirm("确定要删除这条评论吗？")) return;
+        const ok = await deleteReviewById(id);
+        if (ok) {
+            alert("删除成功");
             await renderReviews();
-            await updateStatsDisplay();
+            await updateStats();
         } else {
-            alert('❌ 删除失败，请稍后再试');
+            alert("删除失败，请检查网络或权限");
         }
-    }
+    };
 
-    async function updateStatsDisplay() {
+    async function updateStats() {
         const stats = await fetchStats();
-        const statsDiv = document.getElementById('statsBadge');
-        if (stats.total === 0) {
-            statsDiv.innerHTML = '🎮 等待第一条评测';
-        } else {
-            statsDiv.innerHTML = `📊 ${stats.total}条评测 · 全球平均 ${stats.avg.toFixed(1)}⭐`;
-        }
+        const el = document.getElementById("statsBadge");
+        if (stats.total === 0) el.innerHTML = "🎮 等待第一条评测";
+        else el.innerHTML = `📊 ${stats.total}条评测 · 全球平均 ${stats.avg.toFixed(1)}⭐`;
     }
 
-    // ==================== 发布评论 ====================
-    async function publishReview() {
-        const playerName = document.getElementById('playerName').value.trim();
-        const content = document.getElementById('commentText').value.trim();
-        
-        if (!playerName) {
-            alert('请输入你的昵称');
-            return;
-        }
-        if (!content) {
-            alert('请输入评测内容');
-            return;
-        }
-        if (playerName.length > 20) {
-            alert('昵称不能超过20个字');
-            return;
-        }
-        
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = '⏳ 发布中...';
-        
-        const reviewData = {
-            player_name: playerName,
+    async function publish() {
+        const name = document.getElementById("playerName").value.trim();
+        const content = document.getElementById("commentText").value.trim();
+        if (!name || !content) { alert("请填写昵称和内容"); return; }
+        const btn = document.getElementById("submitBtn");
+        btn.disabled = true;
+        btn.innerText = "⏳ 发布中...";
+        const ok = await postReview({
+            player_name: name,
             category: currentCategory,
             overall_score: scores.overall,
             graphics_score: scores.graphics,
             performance_score: scores.performance,
             economy_score: scores.economy,
             social_score: scores.social,
-            content: content
-        };
-        
-        const success = await postReview(reviewData);
-        
-        if (success) {
-            alert('✅ 评测发布成功！全世界都能看到了');
-            document.getElementById('commentText').value = '';
-            document.getElementById('playerName').value = '';
-            // 重置评分
+            content: content,
+            user_uuid: myUserUuid
+        });
+        btn.disabled = false;
+        btn.innerText = "🚀 发布评测（全球可见）";
+        if (ok) {
+            alert("✅ 发布成功！");
+            document.getElementById("playerName").value = "";
+            document.getElementById("commentText").value = "";
             scores = { overall: 5, graphics: 5, performance: 5, economy: 5, social: 5 };
             updateAllStars();
             await renderReviews();
-            await updateStatsDisplay();
+            await updateStats();
         } else {
-            alert('❌ 发布失败，请检查网络或稍后再试');
+            alert("❌ 发布失败，请检查网络或 Supabase 配置");
         }
-        
-        submitBtn.disabled = false;
-        submitBtn.textContent = '🚀 发布评测（全球可见）';
     }
 
-    // ==================== 辅助函数 ====================
     function getAvatarChar(name) {
-        if (!name) return '👤';
-        const first = name.charAt(0);
-        if (/[\u4e00-\u9fa5]/.test(first)) return first;
-        return first.toUpperCase();
+        if (!name) return "👤";
+        return name.charAt(0).toUpperCase();
     }
-
     function getCategoryName(cat) {
-        const map = {
-            'game': '🎮 游戏总体',
-            'china': '🇨🇳 中国服',
-            'job': '💼 职业体验',
-            'life': '📚 人生阶段',
-            'other': '🌍 其他'
-        };
+        const map = { game: "🎮 游戏总体", china: "🇨🇳 中国服", job: "💼 职业体验", life: "📚 人生阶段", other: "🌍 其他" };
         return map[cat] || cat;
     }
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML.replace(/\n/g, '<br>');
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === "&") return "&amp;";
+            if (m === "<") return "&lt;";
+            if (m === ">") return "&gt;";
+            return m;
+        }).replace(/\n/g, "<br>");
     }
 
-    // ==================== 初始化 ====================
-    async function init() {
-        // 检查配置
-        if (SUPABASE_URL === 'https://xxxxxxxxxxxx.supabase.co') {
-            document.getElementById('reviewsList').innerHTML = `
-                <div class="empty-state" style="color: #ff6b6b;">
-                    ⚠️ 请先配置 Supabase！<br>
-                    打开代码，替换 SUPABASE_URL 和 SUPABASE_ANON_KEY
-                </div>
-            `;
-            return;
+    // 初始化
+    (async function init() {
+        myUserUuid = getMyUserUuid();
+
+        // 管理员开关
+        const adminToggle = document.getElementById("adminToggle");
+        if (localStorage.getItem("isAdmin") === "true") {
+            isAdmin = true;
+            adminToggle.innerText = "👑 管理员模式";
         }
-        
-        // 初始化星星
-        initStarRating('starOverall', 'overall');
-        initStarRating('starGraphics', 'graphics');
-        initStarRating('starPerformance', 'performance');
-        initStarRating('starEconomy', 'economy');
-        initStarRating('starSocial', 'social');
-        
-        // 加载数据
+        adminToggle.onclick = () => {
+            if (!isAdmin) {
+                let pwd = prompt("请输入管理员密码：");
+                if (pwd === "3yuetai.") {   // 你可以修改这个密码
+                    isAdmin = true;
+                    localStorage.setItem("isAdmin", "true");
+                    adminToggle.innerText = "👑 管理员模式";
+                    renderReviews();
+                } else {
+                    alert("密码错误");
+                }
+            } else {
+                isAdmin = false;
+                localStorage.removeItem("isAdmin");
+                adminToggle.innerText = "🔒 普通模式";
+                renderReviews();
+            }
+        };
+
+        initStarRating("starOverall", "overall");
+        initStarRating("starGraphics", "graphics");
+        initStarRating("starPerformance", "performance");
+        initStarRating("starEconomy", "economy");
+        initStarRating("starSocial", "social");
         await renderReviews();
-        await updateStatsDisplay();
-        
-        // 绑定提交按钮
-        document.getElementById('submitBtn').onclick = publishReview;
-        
-        // 绑定分类切换
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
+        await updateStats();
+        document.getElementById("submitBtn").onclick = publish;
+        document.querySelectorAll(".tab").forEach(tab => {
             tab.onclick = async () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentCategory = tab.getAttribute('data-category');
+                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                currentCategory = tab.dataset.category;
                 await renderReviews();
             };
         });
-    }
-    
-    init();
+    })();
 </script>
 </body>
 </html>
